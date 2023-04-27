@@ -31,3 +31,6 @@ package archive
 	installScripts: []
 }
 "moby-init": {}
+for distro in #AllDistros {
+	"moby-init": "\(distro)": {}
+}

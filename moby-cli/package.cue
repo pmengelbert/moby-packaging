@@ -78,3 +78,6 @@ package archive
 "moby-cli": windows: binaries: [
 	"/build/src/build/docker.exe",
 ]
+for distro in #AllDistros {
+	"moby-cli": "\(distro)": {}
+}

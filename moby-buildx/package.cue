@@ -46,3 +46,6 @@ package archive
 	installScripts: []
 }
 "moby-buildx": {}
+for distro in #AllDistros {
+	"moby-buildx": "\(distro)": {}
+}

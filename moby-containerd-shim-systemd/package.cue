@@ -57,3 +57,6 @@ package archive
 	installScripts: []
 }
 "moby-containerd-shim-systemd": {}
+for distro in #AllDistros {
+	"moby-containerd-shim-systemd": "\(distro)": {}
+}

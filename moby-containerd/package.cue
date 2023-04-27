@@ -59,3 +59,6 @@ package archive
 for distro in #AllDistros {
 	"moby-containerd": "\(distro)": {}
 }
+for distro in #AllDistros {
+	"moby-containerd": "\(distro)": {}
+}

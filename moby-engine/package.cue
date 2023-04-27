@@ -103,3 +103,6 @@ package archive
 "moby-engine": windows: binaries: [
 	"/build/src/bundles/binary-daemon/dockerd.exe",
 ]
+for distro in #AllDistros {
+	"moby-engine": "\(distro)": {}
+}

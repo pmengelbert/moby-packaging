@@ -49,3 +49,6 @@ package archive
 	installScripts: []
 }
 "moby-runc": {}
+for distro in #AllDistros {
+	"moby-runc": "\(distro)": {}
+}

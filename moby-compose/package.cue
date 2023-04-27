@@ -49,3 +49,6 @@ package archive
 	installScripts: []
 }
 "moby-compose": {}
+for distro in #AllDistros {
+	"moby-compose": "\(distro)": {}
+}
