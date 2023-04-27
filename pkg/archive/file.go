@@ -7,10 +7,10 @@ import (
 )
 
 type File struct {
-	Source   string
-	Dest     string
-	IsDir    bool
-	Compress bool
+	Source   string `json:"source"`
+	Dest     string `json:"dest"`
+	IsDir    bool   `json:"isDir,omitempty"`
+	Compress bool   `json:"compress,omitempty"`
 }
 
 func (f *File) MoveStaticFile(c *dagger.Container, rootdir string) *dagger.Container {

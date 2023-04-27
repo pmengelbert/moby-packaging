@@ -35,22 +35,24 @@ type InstallScript struct {
 }
 
 type Archive struct {
-	Name    string
-	Webpage string
-	Files   []File
-	Systemd []Systemd
+	Name    string    `json:"name"`
+	Kind    string    `json:"kind"`
+	Distro  string    `json:"distro"`
+	Webpage string    `json:"webpage"`
+	Files   []File    `json:"files"`
+	Systemd []Systemd `json:"systemd"`
 	// list of filenames
-	Postinst []string
+	Postinst []string `json:"postinst"`
 	// required for debian dependency resolution
-	Binaries       []string
-	WinBinaries    []string
-	Recommends     PkgKindMap
-	Suggests       PkgKindMap
-	Conflicts      PkgKindMap
-	Replaces       PkgKindMap
-	Provides       PkgKindMap
-	BuildDeps      PkgKindMap
-	RuntimeDeps    PkgKindMap
-	InstallScripts PkgInstallMap
-	Description    string
+	Binaries       []string      `json:"binaries"`
+	WinBinaries    []string      `json:"winBinaries"`
+	Recommends     PkgKindMap    `json:"recommends"`
+	Suggests       PkgKindMap    `json:"suggests"`
+	Conflicts      PkgKindMap    `json:"conflicts"`
+	Replaces       PkgKindMap    `json:"replaces"`
+	Provides       PkgKindMap    `json:"provides"`
+	BuildDeps      PkgKindMap    `json:"buildDeps"`
+	RuntimeDeps    []string      `json:"runtimeDeps"`
+	InstallScripts PkgInstallMap `json:"installScripts"`
+	Description    string        `json:"description"`
 }
