@@ -1,9 +1,7 @@
 package archive
 
 type PkgKind string
-type PkgKindMap map[PkgKind][]string
-type PkgAction int
-type PkgInstallMap map[PkgKind][]InstallScript
+type PkgAction string
 
 const (
 	PkgKindDeb PkgKind = "deb"
@@ -23,15 +21,15 @@ const (
 )
 
 const (
-	PkgActionPreRemoval PkgAction = iota
-	PkgActionPostRemoval
-	PkgActionPostInstall
-	PkgActionUpgrade
+	PkgActionPreRemoval  PkgAction = "prerm"
+	PkgActionPostRemoval PkgAction = "postrm"
+	PkgActionPostInstall PkgAction = "postinstall"
+	PkgActionUpgrade     PkgAction = "upgrade"
 )
 
 type InstallScript struct {
-	When   PkgAction
-	Script string
+	When   PkgAction `json:"when"`
+	Script string    `json:"script"`
 }
 
 type Archive struct {
@@ -44,15 +42,14 @@ type Archive struct {
 	// list of filenames
 	Postinst []string `json:"postinst"`
 	// required for debian dependency resolution
-	Binaries       []string      `json:"binaries"`
-	WinBinaries    []string      `json:"winBinaries"`
-	Recommends     PkgKindMap    `json:"recommends"`
-	Suggests       PkgKindMap    `json:"suggests"`
-	Conflicts      PkgKindMap    `json:"conflicts"`
-	Replaces       PkgKindMap    `json:"replaces"`
-	Provides       PkgKindMap    `json:"provides"`
-	BuildDeps      PkgKindMap    `json:"buildDeps"`
-	RuntimeDeps    []string      `json:"runtimeDeps"`
-	InstallScripts PkgInstallMap `json:"installScripts"`
-	Description    string        `json:"description"`
+	Binaries       []string        `json:"binaries"`
+	Recommends     []string        `json:"recommends"`
+	Suggests       []string        `json:"suggests"`
+	Conflicts      []string        `json:"conflicts"`
+	Replaces       []string        `json:"replaces"`
+	Provides       []string        `json:"provides"`
+	BuildDeps      []string        `json:"buildDeps"`
+	RuntimeDeps    []string        `json:"runtimeDeps"`
+	InstallScripts []InstallScript `json:"installScripts"`
+	Description    string          `json:"description"`
 }

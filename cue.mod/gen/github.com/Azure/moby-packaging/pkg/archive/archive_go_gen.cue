@@ -11,24 +11,13 @@ package archive
 	#PkgKindRPM |
 	#PkgKindWin
 
-#PkgKindMap: [string]: [...string]
-
-#PkgAction: int // #enumPkgAction
+#PkgAction: string // #enumPkgAction
 
 #enumPkgAction:
 	#PkgActionPreRemoval |
 	#PkgActionPostRemoval |
 	#PkgActionPostInstall |
 	#PkgActionUpgrade
-
-#values_PkgAction: {
-	PkgActionPreRemoval:  #PkgActionPreRemoval
-	PkgActionPostRemoval: #PkgActionPostRemoval
-	PkgActionPostInstall: #PkgActionPostInstall
-	PkgActionUpgrade:     #PkgActionUpgrade
-}
-
-#PkgInstallMap: [string]: [...#InstallScript]
 
 #PkgKindDeb: #PkgKind & "deb"
 #PkgKindRPM: #PkgKind & "rpm"
@@ -43,14 +32,14 @@ _#filenamePostUpgrade: "postup"
 _#filenamePreRm:       "prerm"
 _#filenamePostRm:      "postrm"
 
-#PkgActionPreRemoval:  #PkgAction & 0
-#PkgActionPostRemoval: #PkgAction & 1
-#PkgActionPostInstall: #PkgAction & 2
-#PkgActionUpgrade:     #PkgAction & 3
+#PkgActionPreRemoval:  #PkgAction & "prerm"
+#PkgActionPostRemoval: #PkgAction & "postrm"
+#PkgActionPostInstall: #PkgAction & "postinstall"
+#PkgActionUpgrade:     #PkgAction & "upgrade"
 
 #InstallScript: {
-	When:   #PkgAction
-	Script: string
+	when:   #PkgAction @go(When)
+	script: string     @go(Script)
 }
 
 #Archive: {
@@ -66,14 +55,13 @@ _#filenamePostRm:      "postrm"
 
 	// required for debian dependency resolution
 	binaries: [...string] @go(Binaries,[]string)
-	winBinaries: [...string] @go(WinBinaries,[]string)
-	recommends: #PkgKindMap @go(Recommends)
-	suggests:   #PkgKindMap @go(Suggests)
-	conflicts:  #PkgKindMap @go(Conflicts)
-	replaces:   #PkgKindMap @go(Replaces)
-	provides:   #PkgKindMap @go(Provides)
-	buildDeps:  #PkgKindMap @go(BuildDeps)
+	recommends: [...string] @go(Recommends,[]string)
+	suggests: [...string] @go(Suggests,[]string)
+	conflicts: [...string] @go(Conflicts,[]string)
+	replaces: [...string] @go(Replaces,[]string)
+	provides: [...string] @go(Provides,[]string)
+	buildDeps: [...string] @go(BuildDeps,[]string)
 	runtimeDeps: [...string] @go(RuntimeDeps,[]string)
-	installScripts: #PkgInstallMap @go(InstallScripts)
-	description:    string         @go(Description)
+	installScripts: [...#InstallScript] @go(InstallScripts,[]InstallScript)
+	description: string @go(Description)
 }

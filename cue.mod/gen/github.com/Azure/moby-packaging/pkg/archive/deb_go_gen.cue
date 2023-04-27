@@ -4,7 +4,7 @@
 
 package archive
 
-#ControlTemplate: "\nSource: {{ .Name }}\nSection: admin\nPriority: optional\nMaintainer: Microsoft <support@microsoft.com>\nBuild-Depends: bash-completion,\n               go-md2man <!cross>,\n               go-md2man:amd64 <cross>,\n               pkg-config, {{ join \"deb\" .BuildDeps }}\nRules-Requires-Root: no\nHomepage: {{ .Webpage }}\n\nPackage: {{ .Name }}\nArchitecture: linux-any\nDepends: ${misc:Depends}, ${shlibs:Depends}, {{ join \"deb\" .RuntimeDeps }}\nRecommends: {{ join \"deb\" .Recommends }}\nConflicts: {{ join \"deb\" .Conflicts }}\nReplaces: {{ join \"deb\" .Replaces }}\nProvides: {{ join \"deb\" .Provides }}\nDescription: {{ .Description }}\n" // `
+#ControlTemplate: "\nSource: {{ .Name }}\nSection: admin\nPriority: optional\nMaintainer: Microsoft <support@microsoft.com>\nBuild-Depends: bash-completion,\n               go-md2man <!cross>,\n               go-md2man:amd64 <cross>,\n               pkg-config, {{ join .BuildDeps }}\nRules-Requires-Root: no\nHomepage: {{ .Webpage }}\n\nPackage: {{ .Name }}\nArchitecture: linux-any\nDepends: ${misc:Depends}, ${shlibs:Depends}, {{ join .RuntimeDeps }}\nRecommends: {{ join .Recommends }}\nConflicts: {{ join .Conflicts }}\nReplaces: {{ join .Replaces }}\nProvides: {{ join .Provides }}\nDescription: {{ .Description }}\n" // `
 			// Source: {{ .Name }}
 			// Section: admin
 			// Priority: optional
@@ -12,17 +12,17 @@ package archive
 			// Build-Depends: bash-completion,
 			// go-md2man <!cross>,
 			// go-md2man:amd64 <cross>,
-			// pkg-config, {{ join "deb" .BuildDeps }}
+			// pkg-config, {{ join .BuildDeps }}
 			// Rules-Requires-Root: no
 			// Homepage: {{ .Webpage }}
 			//
 			// Package: {{ .Name }}
 			// Architecture: linux-any
-			// Depends: ${misc:Depends}, ${shlibs:Depends}, {{ join "deb"
+			// Depends: ${misc:Depends}, ${shlibs:Depends}, {{ join
 			// .RuntimeDeps }}
-			// Recommends: {{ join "deb" .Recommends }}
-			// Conflicts: {{ join "deb" .Conflicts }}
-			// Replaces: {{ join "deb" .Replaces }}
-			// Provides: {{ join "deb" .Provides }}
+			// Recommends: {{ join .Recommends }}
+			// Conflicts: {{ join .Conflicts }}
+			// Replaces: {{ join .Replaces }}
+			// Provides: {{ join .Provides }}
 			// Description: {{ .Description }}
 			// `

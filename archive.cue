@@ -2,7 +2,7 @@ package archive
 
 import (
 	"github.com/Azure/moby-packaging/pkg/archive"
-	"strings"
+	// "strings"
 )
 
 #AllDistros: [
@@ -82,7 +82,7 @@ _containerd: #Archive & {
 	]
 }
 
-containerd: [DISTRO=_]: _containerd & #distroMetadata[DISTRO] & {
+[PACKAGE=_packages]: [DISTRO=_distros]: _containerd & #distroMetadata[DISTRO] & {
 	if DISTRO != "windows" {
 		binaries: [
 			"/build/src/bin/containerd",
@@ -94,16 +94,28 @@ containerd: [DISTRO=_]: _containerd & #distroMetadata[DISTRO] & {
 	}
 }
 
-for package in ["moby-containerd"] {
-	for distro in ["jammy", "bionic"] {
-		let trimmed = strings.TrimPrefix(package, "moby-")
-		"\(trimmed)": "\(distro)": {
-			name: package
-		}
-	}
+#exeRegex: =~".*exe$"
+
+[PACKAGE=_packages]: [DISTRO=_distros]: #Archive & #distroMetadata[DISTRO] & {
+	name: PACKAGE
 }
 
-containerd: jammy: runtimeDeps: [
+[PACKAGE=_packages]: windows: #distroMetadata.windows & {
+	binaries: [#exeRegex, ...#exeRegex]
+}
+
+"moby-containerd": windows: binaries: ["x.exe"]
+
+// for package in ["moby-containerd"] {
+// 	for distro in ["jammy", "bionic"] {
+// 		let trimmed = strings.TrimPrefix(package, "moby-")
+// 		"\(trimmed)": "\(distro)": {
+// 			name: package
+// 		}
+// 	}
+// }
+
+"moby-containerd": jammy: runtimeDeps: [
 	"aaa",
 	"bbb",
 ]
