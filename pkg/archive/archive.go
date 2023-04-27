@@ -39,8 +39,6 @@ type Archive struct {
 	Webpage string    `json:"webpage"`
 	Files   []File    `json:"files"`
 	Systemd []Systemd `json:"systemd"`
-	// list of filenames
-	Postinst []string `json:"postinst"`
 	// required for debian dependency resolution
 	Binaries       []string        `json:"binaries"`
 	Recommends     []string        `json:"recommends"`

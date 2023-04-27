@@ -4,15 +4,9 @@ import (
 	"github.com/Azure/moby-packaging/pkg/archive"
 )
 
-#deb: "deb"
-#rpm: "rpm"
-#win: "win"
-
-_packageType: #deb | #rpm | #win
-
 _arch: "amd64" | "arm64" | "arm/v7"
 
-_packages: "moby-buildx" |
+#enumPackages: "moby-buildx" |
 	"moby-cli" |
 	"moby-compose" |
 	"moby-containerd" |
@@ -21,7 +15,7 @@ _packages: "moby-buildx" |
 	"moby-init" |
 	"moby-runc"
 
-_distros: "bionic" |
+#enumDistros: "bionic" |
 	"bullseye" |
 	"buster" |
 	"centos7" |
@@ -32,17 +26,23 @@ _distros: "bionic" |
 	"rhel9" |
 	"windows"
 
+#enumDebDistros: "bionic" | "bullseye" | "buster" | "focal" | "jammy"
+#enumRPMDistros: "centos7" | "mariner2" | "rhel8" | "rhel9"
+
+#enumLinuxKind:    archive.#PkgKindDeb | archive.#PkgKindRPM
+#enumLinuxDistros: #enumDebDistros | #enumRPMDistros
+
 _toPackageType: {
-	bionic:   #deb
-	bullseye: #deb
-	buster:   #deb
-	focal:    #deb
-	jammy:    #deb
-	centos7:  #rpm
-	mariner2: #rpm
-	rhel8:    #rpm
-	rhel9:    #rpm
-	windows:  #win
+	bionic:   archive.#PkgKindDeb
+	bullseye: archive.#PkgKindDeb
+	buster:   archive.#PkgKindDeb
+	focal:    archive.#PkgKindDeb
+	jammy:    archive.#PkgKindDeb
+	centos7:  archive.#PkgKindRPM
+	mariner2: archive.#PkgKindRPM
+	rhel8:    archive.#PkgKindRPM
+	rhel9:    archive.#PkgKindRPM
+	windows:  archive.#PkgKindWin
 }
 
 // Semver validation
@@ -52,9 +52,9 @@ let BuildSpec = archive.#Spec
 #Spec: BuildSpec & {
 	arch:     _arch
 	commit:   =~"[0-9a-f]{40}"
-	package:  _packages
+	package:  #enumPackages
 	repo:     =~"https://.*$"
-	distro:   _distros
+	distro:   #enumDistros
 	tag:      #semver
 	revision: =~#"\d+"#
 	_kind:    _toPackageType["\(distro)"]

@@ -5,6 +5,6 @@
 package archive
 
 #Systemd: {
-	Source: string
-	Dest:   string
+	source: string @go(Source)
+	dest:   string @go(Dest)
 }

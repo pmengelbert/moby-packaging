@@ -50,9 +50,6 @@ _#filenamePostRm:      "postrm"
 	files: [...#File] @go(Files,[]File)
 	systemd: [...#Systemd] @go(Systemd,[]Systemd)
 
-	// list of filenames
-	postinst: [...string] @go(Postinst,[]string)
-
 	// required for debian dependency resolution
 	binaries: [...string] @go(Binaries,[]string)
 	recommends: [...string] @go(Recommends,[]string)
