@@ -4,22 +4,7 @@ package archive
 	webpage:     "https://github.com/docker/buildx"
 	description: "A Docker CLI plugin for extended build capabilities with BuildKit"
 }
-"moby-buildx": [DISTRO=#enumLinuxKind]: {
-	binaries: [
-		"/build/src/docker-buildx",
-	]
-	runtimeDeps: []
-	recommends: [
-		"moby-cli",
-	]
-	conflicts: [
-		"docker-ce",
-		"docker-ee",
-	]
-	replaces: []
-	provides: [...string]
-	installScripts: []
-}
+
 "moby-buildx": [DISTRO=#enumLinuxKind]: {
 	binaries: [
 		"/build/src/docker-buildx",
@@ -45,7 +30,7 @@ package archive
 	provides: [...string]
 	installScripts: []
 }
-"moby-buildx": {}
+
 for distro in #AllDistros {
 	"moby-buildx": "\(distro)": {}
 }
