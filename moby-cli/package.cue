@@ -43,7 +43,7 @@ package archive
 	provides: []
 	installScripts: [
 		{
-			when:   "post-install"
+			when:   "postinstall"
 			script: "#moby-cli/postinstall/deb/postinst"
 		},
 	]
@@ -70,7 +70,7 @@ package archive
 	provides: []
 	installScripts: [
 		{
-			when:   "post-install"
+			when:   "postinstall"
 			script: "#moby-cli/postinstall/rpm/postinst"
 		},
 	]

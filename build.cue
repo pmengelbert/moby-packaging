@@ -32,6 +32,8 @@ _arch: "amd64" | "arm64" | "arm/v7"
 #enumLinuxKind:    archive.#PkgKindDeb | archive.#PkgKindRPM
 #enumLinuxDistros: #enumDebDistros | #enumRPMDistros
 
+#enumWinPackages: "moby-engine" | "moby-containerd" | "moby-cli"
+
 _toPackageType: {
 	bionic:   archive.#PkgKindDeb
 	bullseye: archive.#PkgKindDeb

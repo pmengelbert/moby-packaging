@@ -46,15 +46,15 @@ package archive
 	provides: []
 	installScripts: [
 		{
-			when:   "post-install"
+			when:   "postinstall"
 			script: "#moby-engine/postinstall/deb/postinstall"
 		},
 		{
-			when:   "pre-removal"
+			when:   "prerm"
 			script: "#moby-engine/postinstall/deb/prerm"
 		},
 		{
-			when:   "post-removal"
+			when:   "postrm"
 			script: "#moby-engine/postinstall/deb/postrm"
 		},
 	]
@@ -87,15 +87,15 @@ package archive
 	provides: []
 	installScripts: [
 		{
-			when:   "post-install"
+			when:   "postinstall"
 			script: "#moby-engine/postinstall/rpm/postinstall"
 		},
 		{
-			when:   "pre-removal"
+			when:   "prerm"
 			script: "#moby-engine/postinstall/rpm/prerm"
 		},
 		{
-			when:   "post-upgrade"
+			when:   "upgrade"
 			script: "#moby-engine/postinstall/rpm/upgrade"
 		},
 	]

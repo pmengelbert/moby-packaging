@@ -57,7 +57,9 @@ import (
 #exeRegex: =~".*exe$"
 
 [PACKAGE=#enumPackages]: windows: {
-	binaries: [...#exeRegex]
+	binaries: [#exeRegex, ...#exeRegex]
 	runtimeDeps: []
 	provides: []
+	replaces: []
+	conflicts: []
 }

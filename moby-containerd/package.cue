@@ -36,15 +36,15 @@ package archive
 	provides: []
 	installScripts: [
 		{
-			when:   "post-install"
+			when:   "postinstall"
 			script: "#moby-containerd/postinstall/rpm/postinstall"
 		},
 		{
-			when:   "pre-removal"
+			when:   "prerm"
 			script: "#moby-containerd/postinstall/rpm/prerm"
 		},
 		{
-			when:   "post-upgrade"
+			when:   "upgrade"
 			script: "#moby-containerd/postinstall/rpm/upgrade"
 		},
 	]

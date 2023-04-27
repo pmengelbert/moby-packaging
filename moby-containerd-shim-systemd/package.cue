@@ -20,15 +20,15 @@ package archive
 	provides: []
 	installScripts: [
 		{
-			when:   "post-install"
+			when:   "postinstall"
 			script: "#moby-containerd-shim-systemd/postinstall/deb/postinst"
 		},
 		{
-			when:   "pre-removal"
+			when:   "prerm"
 			script: "#moby-containerd-shim-systemd/postinstall/deb/prerm"
 		},
 		{
-			when:   "post-removal"
+			when:   "postrm"
 			script: "#moby-containerd-shim-systemd/postinstall/deb/postrm"
 		},
 	]
