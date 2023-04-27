@@ -29,10 +29,9 @@ import (
 ]
 
 #Archive: archive.#Archive & {
-	name:           #enumPackages
-	kind:           archive.#enumPkgKind
-	distro:         #enumDistros
-	installScripts: [...archive.#InstallScript] & [...{when: archive.#enumPkgAction}]
+	name:   #enumPackages
+	kind:   archive.#enumPkgKind
+	distro: #enumDistros
 }
 
 #File: archive.#File & {
@@ -52,16 +51,10 @@ import (
 	provides: [PACKAGE, ...string]
 	binaries: [string, ...string]
 	description: !=""
+	files: [#File, ...#File]
 }
 
 #exeRegex: =~".*exe$"
-
-// [PACKAGE=#enumPackages]: windows: {
-// }
-
-// [PACKAGE=#enumNonWinPackages]: windows: {
-// 	binaries: []
-// }
 
 [PACKAGE=#enumWinPackages]: windows: {
 	binaries: [#exeRegex, ...#exeRegex]
