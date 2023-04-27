@@ -17,7 +17,7 @@ package archive
 		"docker-ee",
 	]
 	replaces: []
-	provides: []
+	provides: [...string]
 	installScripts: []
 }
 "moby-buildx": [DISTRO=#enumLinuxKind]: {
@@ -42,7 +42,7 @@ package archive
 		"docker-ee",
 	]
 	replaces: []
-	provides: []
+	provides: [...string]
 	installScripts: []
 }
 "moby-buildx": {}

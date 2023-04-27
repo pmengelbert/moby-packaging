@@ -33,7 +33,7 @@ package archive
 		"moby-engine <= 3.0.11",
 	]
 	replaces: []
-	provides: []
+	provides: [...string]
 	installScripts: [
 		{
 			when:   "postinstall"

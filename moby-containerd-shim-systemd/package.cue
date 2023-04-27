@@ -17,7 +17,7 @@ package archive
 	]
 	conflicts: []
 	replaces: []
-	provides: []
+	provides: [...string]
 	installScripts: [
 		{
 			when:   "postinstall"
@@ -53,7 +53,7 @@ package archive
 	recommends: []
 	conflicts: []
 	replaces: []
-	provides: []
+	provides: [...string]
 	installScripts: []
 }
 "moby-containerd-shim-systemd": {}

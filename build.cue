@@ -32,7 +32,8 @@ _arch: "amd64" | "arm64" | "arm/v7"
 #enumLinuxKind:    archive.#PkgKindDeb | archive.#PkgKindRPM
 #enumLinuxDistros: #enumDebDistros | #enumRPMDistros
 
-#enumWinPackages: "moby-engine" | "moby-containerd" | "moby-cli"
+#enumWinPackages:    "moby-engine" | "moby-containerd" | "moby-cli"
+#enumNonWinPackages: "moby-buildx" | "moby-compose" | "moby-containerd-shim-systemd" | "moby-init" | "moby-runc"
 
 _toPackageType: {
 	bionic:   archive.#PkgKindDeb

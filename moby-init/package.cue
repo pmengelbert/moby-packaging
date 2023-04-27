@@ -16,7 +16,7 @@ package archive
 	replaces: [
 		"tini",
 	]
-	provides: []
+	provides: [...string]
 	installScripts: []
 }
 "moby-init": [DISTRO=#enumLinuxKind]: {
@@ -27,7 +27,7 @@ package archive
 	recommends: []
 	conflicts: []
 	replaces: []
-	provides: []
+	provides: [...string]
 	installScripts: []
 }
 "moby-init": {}

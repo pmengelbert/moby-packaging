@@ -45,7 +45,7 @@ package archive
 		"runc-io",
 	]
 	replaces: []
-	provides: []
+	provides: [...string]
 	installScripts: []
 }
 "moby-runc": {}

@@ -43,7 +43,7 @@ package archive
 		"lxc-docker",
 		"lxc-docker-virtual-package",
 	]
-	provides: []
+	provides: [...string]
 	installScripts: [
 		{
 			when:   "postinstall"
@@ -84,7 +84,7 @@ package archive
 		"docker-ee",
 	]
 	replaces: []
-	provides: []
+	provides: [...string]
 	installScripts: [
 		{
 			when:   "postinstall"

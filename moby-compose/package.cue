@@ -19,7 +19,7 @@ package archive
 		"docker-ee-cli",
 	]
 	replaces: []
-	provides: []
+	provides: [...string]
 	installScripts: []
 }
 "moby-compose": [DISTRO=#enumLinuxKind]: {
@@ -45,7 +45,7 @@ package archive
 		"docker-ee",
 	]
 	replaces: []
-	provides: []
+	provides: [...string]
 	installScripts: []
 }
 "moby-compose": {}

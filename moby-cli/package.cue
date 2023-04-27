@@ -40,7 +40,7 @@ package archive
 		"lxc-docker",
 		"lxc-docker-virtual-package",
 	]
-	provides: []
+	provides: [...string]
 	installScripts: [
 		{
 			when:   "postinstall"
@@ -67,7 +67,7 @@ package archive
 	recommends: []
 	conflicts: []
 	replaces: []
-	provides: []
+	provides: [...string]
 	installScripts: [
 		{
 			when:   "postinstall"
