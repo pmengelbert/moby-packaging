@@ -63,3 +63,17 @@ import (
 	replaces: []
 	conflicts: []
 }
+
+objects: [ for v in objectSets for x in v {x.jammy}]
+
+objectSets: [
+	"moby-buildx",
+	"moby-cli",
+	"moby-compose",
+	"moby-containerd",
+	"moby-containerd-shim-systemd",
+	"moby-engine",
+	"moby-init",
+	"moby-runc",
+]
+// objectSets: #AllPackages
