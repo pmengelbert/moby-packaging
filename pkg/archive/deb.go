@@ -2,6 +2,7 @@ package archive
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"path/filepath"
 	"strings"
@@ -139,6 +140,12 @@ func (d *DebPackager) withInstallScripts(c *dagger.Container) (*dagger.Container
 func (d *DebPackager) installScript(script *InstallScript, c *dagger.Container) (*dagger.Container, []string) {
 	newArgs := []string{}
 
+	s, err := c.File(script.Script).Contents(context.TODO())
+	if err != nil {
+		return c, []string{}
+	}
+
+	script.Script = s
 	var templateStr, filename, flag string
 	switch script.When {
 	case PkgActionPostInstall, PkgActionUpgrade:

@@ -2,6 +2,7 @@ package archive
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"path/filepath"
 	"strings"
@@ -131,6 +132,13 @@ func (r *RpmPackager) withInstallScripts(c *dagger.Container) (*dagger.Container
 func (r *RpmPackager) installScript(script *InstallScript, c *dagger.Container) (*dagger.Container, []string) {
 	newArgs := []string{}
 
+	s, err := c.File(script.Script).Contents(context.TODO())
+	if err != nil {
+		return c, []string{}
+	}
+
+	script.Script = s
+
 	var templateStr, filename, flag string
 	switch script.When {
 	case PkgActionPostInstall:
@@ -156,7 +164,7 @@ if [ $1 -eq 0 ]; then
 fi
             `
 	default:
-		panic("unrecognized package action: " + fmt.Sprintf("%d", script.When))
+		panic("unrecognized package action: " + fmt.Sprintf("%s", script.When))
 	}
 
 	filename = filepath.Join("/build", filename)
