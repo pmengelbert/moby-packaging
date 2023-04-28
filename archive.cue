@@ -32,6 +32,7 @@ import (
 	name:   #enumPackages
 	kind:   archive.#enumPkgKind
 	distro: #enumDistros
+	kind:   _toPackageType[distro]
 }
 
 #File: archive.#File & {
@@ -44,7 +45,6 @@ import (
 [PACKAGE=#enumPackages]: [DISTRO=#enumDistros]: {
 	name:   PACKAGE
 	distro: DISTRO
-	kind:   _toPackageType[DISTRO]
 }
 
 [PACKAGE=#enumPackages]: [DISTRO=#enumLinuxDistros]: {
