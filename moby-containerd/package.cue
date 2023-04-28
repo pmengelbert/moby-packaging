@@ -2,7 +2,7 @@ package archive
 
 containerd: [DISTRO=#enumDistros]: {
 	webpage:     "https://github.com/containerd/containerd"
-	description: "moby-containerd/description"
+	description: "Industry-standard container runtime\n containerd is an industry-standard container runtime with an emphasis on\n simplicity, robustness and portability. It is available as a daemon for Linux\n and Windows, which can manage the complete container lifecycle of its host\n system: image transfer and storage, container execution and supervision,\n low-level storage and network attachments, etc.\n .\n containerd is designed to be embedded into a larger system, rather than being\n used directly by developers or end-users.\n"
 }
 
 containerd: [DISTRO=#enumLinuxDistros]: {
