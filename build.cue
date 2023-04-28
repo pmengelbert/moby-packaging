@@ -6,14 +6,14 @@ import (
 
 _arch: "amd64" | "arm64" | "arm/v7"
 
-#enumPackages: "moby-buildx" |
-	"moby-cli" |
-	"moby-compose" |
-	"moby-containerd" |
-	"moby-containerd-shim-systemd" |
-	"moby-engine" |
-	"moby-init" |
-	"moby-runc"
+#enumPackages: "buildx" |
+	"cli" |
+	"compose" |
+	"containerd" |
+	"containerd-shim-systemd" |
+	"engine" |
+	"init" |
+	"runc"
 
 #enumDistros: "bionic" |
 	"bullseye" |
@@ -32,8 +32,8 @@ _arch: "amd64" | "arm64" | "arm/v7"
 #enumLinuxKind:    archive.#PkgKindDeb | archive.#PkgKindRPM
 #enumLinuxDistros: #enumDebDistros | #enumRPMDistros
 
-#enumWinPackages:    "moby-engine" | "moby-containerd" | "moby-cli"
-#enumNonWinPackages: "moby-buildx" | "moby-compose" | "moby-containerd-shim-systemd" | "moby-init" | "moby-runc"
+#enumWinPackages:    "engine" | "containerd" | "cli"
+#enumNonWinPackages: "buildx" | "compose" | "containerd-shim-systemd" | "init" | "runc"
 
 _toPackageType: {
 	bionic:   archive.#PkgKindDeb

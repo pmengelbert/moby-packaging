@@ -18,18 +18,18 @@ import (
 ]
 
 #AllPackages: [
-	"moby-buildx",
-	"moby-cli",
-	"moby-compose",
-	"moby-containerd",
-	"moby-containerd-shim-systemd",
-	"moby-engine",
-	"moby-init",
-	"moby-runc",
+	"buildx",
+	"cli",
+	"compose",
+	"containerd",
+	"shim",
+	"engine",
+	"init",
+	"runc",
 ]
 
 #Archive: archive.#Archive & {
-	name:   #enumPackages
+	name:   string
 	kind:   archive.#enumPkgKind
 	distro: #enumDistros
 	kind:   _toPackageType[distro]
@@ -43,7 +43,7 @@ import (
 [PACKAGE=#enumPackages]: [DISTRO=#enumDistros]: #Archive
 
 [PACKAGE=#enumPackages]: [DISTRO=#enumDistros]: {
-	name:   PACKAGE
+	name:   "moby-\(PACKAGE)"
 	distro: DISTRO
 }
 
@@ -63,17 +63,3 @@ import (
 	replaces: []
 	conflicts: []
 }
-
-objects: [ for v in objectSets for x in v {x.jammy}]
-
-objectSets: [
-	"moby-buildx",
-	"moby-cli",
-	"moby-compose",
-	"moby-containerd",
-	"moby-containerd-shim-systemd",
-	"moby-engine",
-	"moby-init",
-	"moby-runc",
-]
-// objectSets: #AllPackages
