@@ -5,14 +5,6 @@ import (
 	"os"
 	"strings"
 
-	buildx "github.com/Azure/moby-packaging/moby-buildx"
-	cli "github.com/Azure/moby-packaging/moby-cli"
-	compose "github.com/Azure/moby-packaging/moby-compose"
-	containerd "github.com/Azure/moby-packaging/moby-containerd"
-	shim "github.com/Azure/moby-packaging/moby-containerd-shim-systemd"
-	engine "github.com/Azure/moby-packaging/moby-engine"
-	mobyinit "github.com/Azure/moby-packaging/moby-init"
-	runc "github.com/Azure/moby-packaging/moby-runc"
 	"github.com/Azure/moby-packaging/pkg/apt"
 	"github.com/Azure/moby-packaging/pkg/archive"
 
@@ -197,27 +189,14 @@ type Packager interface {
 	Package(*dagger.Client, *dagger.Container, *archive.Spec) *dagger.Directory
 }
 
-func (t *Target) Packager(projectName string) Packager {
-	mappings := map[string]archive.Archive{
-		"moby-engine":                  engine.Archive,
-		"moby-cli":                     cli.Archive,
-		"moby-containerd":              containerd.Archive,
-		"moby-containerd-shim-systemd": shim.Archive,
-		"moby-runc":                    runc.Archive,
-		"moby-compose":                 compose.Archive,
-		"moby-buildx":                  buildx.Archive,
-		"moby-init":                    mobyinit.Archive,
-	}
-
-	a := mappings[projectName]
-
-	switch t.PkgKind() {
+func (t *Target) Packager(a *archive.Archive) Packager {
+	switch a.Kind {
 	case "deb":
-		return archive.NewDebPackager(&a, MirrorPrefix())
+		return archive.NewDebPackager(a, MirrorPrefix())
 	case "rpm":
-		return archive.NewRPMPackager(&a, MirrorPrefix())
+		return archive.NewRPMPackager(a, MirrorPrefix())
 	case "win":
-		return archive.NewWinPackager(&a, MirrorPrefix())
+		return archive.NewWinPackager(a, MirrorPrefix())
 	default:
 		panic("unknown pkgKind: " + t.pkgKind)
 	}
@@ -238,7 +217,7 @@ func (t *Target) getCommitTime(projectName string, sourceDir *dagger.Directory) 
 	return strings.TrimSpace(commitTime)
 }
 
-func (t *Target) Make(project *archive.Spec) *dagger.Directory {
+func (t *Target) Make(project *archive.Spec, pkg *archive.Archive) *dagger.Directory {
 	projectDir := t.client.Host().Directory(project.Pkg)
 	hackDir := t.client.Host().Directory("hack/cross")
 	md2man := t.goMD2Man()
@@ -263,7 +242,7 @@ func (t *Target) Make(project *archive.Spec) *dagger.Directory {
 
 	//return build.Directory("/out")
 
-	packager := t.Packager(project.Pkg)
+	packager := t.Packager(pkg)
 	return packager.Package(t.client, build, project)
 }
 

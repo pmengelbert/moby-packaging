@@ -15,15 +15,23 @@ import (
 	"github.com/Azure/moby-packaging/pkg/archive"
 	"github.com/Azure/moby-packaging/targets"
 	"golang.org/x/sys/unix"
+	"sigs.k8s.io/yaml"
 )
 
 func main() {
 	outDir := flag.String("output", "bundles", "Output directory for built packages (note the distro name will be appended to this path)")
 	buildSpec := flag.String("build-spec", "", "Location of the build spec json file")
+	packageSpec := flag.String("package-spec", "", "Location of the package spec yaml file")
 
 	flag.Parse()
 
 	spec, err := readBuildSpec(*buildSpec)
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "could not read or parse build spec file")
+		os.Exit(1)
+	}
+
+	pkg, err := readPackageSpec(*packageSpec)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "could not read or parse build spec file")
 		os.Exit(1)
@@ -44,7 +52,7 @@ func main() {
 		client.Close()
 	}()
 
-	out, err := do(ctx, client, spec)
+	out, err := do(ctx, client, spec, pkg)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(3)
@@ -74,7 +82,25 @@ func readBuildSpec(filename string) (*archive.Spec, error) {
 	return &spec, nil
 }
 
-func do(ctx context.Context, client *dagger.Client, cfg *archive.Spec) (*dagger.Directory, error) {
+func readPackageSpec(filename string) (*archive.Archive, error) {
+	if filename == "" {
+		return nil, fmt.Errorf("no build spec file specified")
+	}
+
+	b, err := os.ReadFile(filename)
+	if err != nil {
+		return nil, err
+	}
+
+	var spec archive.Archive
+	if err := yaml.Unmarshal(b, &spec); err != nil {
+		return nil, err
+	}
+
+	return &spec, nil
+}
+
+func do(ctx context.Context, client *dagger.Client, cfg *archive.Spec, pkg *archive.Archive) (*dagger.Directory, error) {
 	if cfg.Arch == "" {
 		p, err := client.DefaultPlatform(ctx)
 		if err != nil {
@@ -98,6 +124,6 @@ func do(ctx context.Context, client *dagger.Client, cfg *archive.Spec) (*dagger.
 	if err != nil {
 		return nil, err
 	}
-	out := target.Make(cfg)
+	out := target.Make(cfg, pkg)
 	return out, nil
 }
