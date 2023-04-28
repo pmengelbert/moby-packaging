@@ -166,7 +166,7 @@ if [ "$1" = "purge" ]; then
 fi
             `
 	default:
-		panic("unrecognized package action: " + fmt.Sprintf("%d", script.When))
+		panic("unrecognized package action: " + fmt.Sprintf("%s", script.When))
 	}
 
 	filename = filepath.Join("/build", filename)
