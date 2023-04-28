@@ -60,15 +60,15 @@ containerd: [DISTRO=#enumDebDistros]: {
 	installScripts: [
 		{
 			when:   "postinstall"
-			script: "moby-containerd/postinstall/deb/postinstall"
+			script: "/build/postinstall/deb/postinstall"
 		},
 		{
 			when:   "prerm"
-			script: "moby-containerd/postinstall/deb/prerm"
+			script: "/build/postinstall/deb/prerm"
 		},
 		{
 			when:   "postrm"
-			script: "moby-containerd/postinstall/deb/postrm"
+			script: "/build/postinstall/deb/postrm"
 		},
 	]
 }
@@ -96,15 +96,15 @@ containerd: [DISTRO=#enumRPMDistros]: {
 	installScripts: [
 		{
 			when:   "postinstall"
-			script: "moby-containerd/postinstall/rpm/postinstall"
+			script: "/build/postinstall/rpm/postinstall"
 		},
 		{
 			when:   "prerm"
-			script: "moby-containerd/postinstall/rpm/prerm"
+			script: "/build/postinstall/rpm/prerm"
 		},
 		{
 			when:   "upgrade"
-			script: "moby-containerd/postinstall/rpm/upgrade"
+			script: "/build/postinstall/rpm/upgrade"
 		},
 	]
 }

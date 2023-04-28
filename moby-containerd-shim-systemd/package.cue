@@ -46,15 +46,15 @@ shim: [DISTRO=#enumDebDistros]: {
 	installScripts: [
 		{
 			when:   "postinstall"
-			script: "moby-containerd-shim-systemd/postinstall/deb/postinst"
+			script: "/build/postinstall/deb/postinst"
 		},
 		{
 			when:   "prerm"
-			script: "moby-containerd-shim-systemd/postinstall/deb/prerm"
+			script: "/build/postinstall/deb/prerm"
 		},
 		{
 			when:   "postrm"
-			script: "moby-containerd-shim-systemd/postinstall/deb/postrm"
+			script: "/build/postinstall/deb/postrm"
 		},
 	]
 }

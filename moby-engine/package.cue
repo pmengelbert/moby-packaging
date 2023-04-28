@@ -95,15 +95,15 @@ engine: [DISTRO=#enumDebDistros]: {
 	installScripts: [
 		{
 			when:   "postinstall"
-			script: "moby-engine/postinstall/deb/postinstall"
+			script: "/build/postinstall/deb/postinstall"
 		},
 		{
 			when:   "prerm"
-			script: "moby-engine/postinstall/deb/prerm"
+			script: "/build/postinstall/deb/prerm"
 		},
 		{
 			when:   "postrm"
-			script: "moby-engine/postinstall/deb/postrm"
+			script: "/build/postinstall/deb/postrm"
 		},
 	]
 }
@@ -131,15 +131,15 @@ engine: [DISTRO=#enumRPMDistros]: {
 	installScripts: [
 		{
 			when:   "postinstall"
-			script: "moby-engine/postinstall/rpm/postinstall"
+			script: "/build/postinstall/rpm/postinstall"
 		},
 		{
 			when:   "prerm"
-			script: "moby-engine/postinstall/rpm/prerm"
+			script: "/build/postinstall/rpm/prerm"
 		},
 		{
 			when:   "upgrade"
-			script: "moby-engine/postinstall/rpm/upgrade"
+			script: "/build/postinstall/rpm/upgrade"
 		},
 	]
 }
