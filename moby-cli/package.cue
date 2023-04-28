@@ -76,7 +76,7 @@ cli: [DISTRO=#enumDebDistros]: {
 	installScripts: [
 		{
 			when:   "postinstall"
-			script: "#moby-cli/postinstall/deb/postinst"
+			script: "moby-cli/postinstall/deb/postinst"
 		},
 	]
 }
@@ -99,7 +99,7 @@ cli: [DISTRO=#enumRPMDistros]: {
 	installScripts: [
 		{
 			when:   "postinstall"
-			script: "#moby-cli/postinstall/rpm/postinst"
+			script: "moby-cli/postinstall/rpm/postinst"
 		},
 	]
 }

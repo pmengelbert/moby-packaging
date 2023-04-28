@@ -2,7 +2,7 @@ package archive
 
 containerd: [DISTRO=#enumDistros]: {
 	webpage:     "https://github.com/containerd/containerd"
-	description: "#moby-containerd/description"
+	description: "moby-containerd/description"
 }
 
 containerd: [DISTRO=#enumLinuxDistros]: {
@@ -60,15 +60,15 @@ containerd: [DISTRO=#enumDebDistros]: {
 	installScripts: [
 		{
 			when:   "postinstall"
-			script: "#moby-containerd/postinstall/deb/postinstall"
+			script: "moby-containerd/postinstall/deb/postinstall"
 		},
 		{
 			when:   "prerm"
-			script: "#moby-containerd/postinstall/deb/prerm"
+			script: "moby-containerd/postinstall/deb/prerm"
 		},
 		{
 			when:   "postrm"
-			script: "#moby-containerd/postinstall/deb/postrm"
+			script: "moby-containerd/postinstall/deb/postrm"
 		},
 	]
 }
@@ -96,15 +96,15 @@ containerd: [DISTRO=#enumRPMDistros]: {
 	installScripts: [
 		{
 			when:   "postinstall"
-			script: "#moby-containerd/postinstall/rpm/postinstall"
+			script: "moby-containerd/postinstall/rpm/postinstall"
 		},
 		{
 			when:   "prerm"
-			script: "#moby-containerd/postinstall/rpm/prerm"
+			script: "moby-containerd/postinstall/rpm/prerm"
 		},
 		{
 			when:   "upgrade"
-			script: "#moby-containerd/postinstall/rpm/upgrade"
+			script: "moby-containerd/postinstall/rpm/upgrade"
 		},
 	]
 }
