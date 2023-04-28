@@ -6,34 +6,16 @@ import (
 
 _arch: "amd64" | "arm64" | "arm/v7"
 
-#enumPackages: "buildx" |
-	"cli" |
-	"compose" |
-	"containerd" |
-	"containerd-shim-systemd" |
-	"engine" |
-	"init" |
-	"runc"
-
-#enumDistros: "bionic" |
-	"bullseye" |
-	"buster" |
-	"centos7" |
-	"focal" |
-	"jammy" |
-	"mariner2" |
-	"rhel8" |
-	"rhel9" |
-	"windows"
+#enumWinPackages:    "engine" | "containerd" | "cli"
+#enumNonWinPackages: "buildx" | "compose" | "shim" | "init" | "runc"
+#enumPackages:       #enumWinPackages | #enumNonWinPackages
 
 #enumDebDistros: "bionic" | "bullseye" | "buster" | "focal" | "jammy"
 #enumRPMDistros: "centos7" | "mariner2" | "rhel8" | "rhel9"
+#enumDistros:    #enumDebDistros | #enumRPMDistros | "windows"
 
 #enumLinuxKind:    archive.#PkgKindDeb | archive.#PkgKindRPM
 #enumLinuxDistros: #enumDebDistros | #enumRPMDistros
-
-#enumWinPackages:    "engine" | "containerd" | "cli"
-#enumNonWinPackages: "buildx" | "compose" | "containerd-shim-systemd" | "init" | "runc"
 
 _toPackageType: {
 	bionic:   archive.#PkgKindDeb

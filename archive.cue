@@ -28,8 +28,18 @@ import (
 	"runc",
 ]
 
+#fullName: {
+	buildx:     "moby-buildx"
+	cli:        "moby-cli"
+	compose:    "moby-compose"
+	containerd: "moby-containerd"
+	shim:       "moby-containerd-shim-systemd"
+	engine:     "moby-engine"
+	init:       "moby-init"
+	runc:       "moby-runc"
+}
+
 #Archive: archive.#Archive & {
-	name:   string
 	kind:   archive.#enumPkgKind
 	distro: #enumDistros
 	kind:   _toPackageType[distro]
@@ -43,12 +53,12 @@ import (
 [PACKAGE=#enumPackages]: [DISTRO=#enumDistros]: #Archive
 
 [PACKAGE=#enumPackages]: [DISTRO=#enumDistros]: {
-	name:   "moby-\(PACKAGE)"
+	name:   #fullName[PACKAGE]
 	distro: DISTRO
 }
 
 [PACKAGE=#enumPackages]: [DISTRO=#enumLinuxDistros]: {
-	provides: [PACKAGE, ...string]
+	provides: [#fullName[PACKAGE], ...string]
 	binaries: [string, ...string]
 	description: !=""
 	files: [#File, ...#File]
