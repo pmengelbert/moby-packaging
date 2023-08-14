@@ -11,11 +11,14 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
 	"github.com/Azure/azure-sdk-for-go/sdk/storage/azqueue"
 	"github.com/Azure/moby-packaging/pkg/archive"
+	"k8s.io/apimachinery/pkg/util/sets"
 )
 
 const (
 	defaultAccountName = "moby"
 	defaultQueueName   = "moby-packaging-signing-and-publishing"
+
+	maxFailures = 4
 )
 
 var (
@@ -35,6 +38,7 @@ type ArtifactInfo struct {
 
 type Messages struct {
 	Messages []*azqueue.DequeuedMessage
+	s        sets.Set[archive.Spec]
 }
 
 type Client struct {
@@ -77,15 +81,32 @@ func (c *Client) GetAllMessages(ctx context.Context) (*Messages, error) {
 		failures = 0
 	}
 
-	return &Messages{Messages: allMessages}, allErrs
+	return &Messages{
+		Messages: allMessages,
+		s:        nil,
+	}, allErrs
 }
+
+type FilterFunc func(s1, s2 archive.Spec) bool
 
 // used by trigger
 func (m *Messages) ContainsBuild(spec archive.Spec) (bool, error) {
+	if m.s != nil {
+		return m.s.Has(spec), nil
+	}
+
+	// an error here is not necessarily total failure
+	err := m.memoize()
+	return m.s.Has(spec), err
+}
+
+func (m *Messages) memoize() error {
+	m.s = sets.New[archive.Spec]()
 	failures := 0
+
 	for _, rawMessage := range m.Messages {
-		if failures > 4 {
-			return false, fmt.Errorf("too many failures inspecting builds")
+		if failures > maxFailures {
+			return fmt.Errorf("too many failures inspecting builds")
 		}
 
 		messageID := "unknown"
@@ -106,19 +127,17 @@ func (m *Messages) ContainsBuild(spec archive.Spec) (bool, error) {
 			continue
 		}
 
-		var m Message
-		if err := json.Unmarshal(b, &m); err != nil {
+		var mm Message
+		if err := json.Unmarshal(b, &mm); err != nil {
 			failures++
 			fmt.Fprintf(os.Stderr, "##vso[task.logissue type=error;]error unmarshaling message with ID: %s\n", messageID)
 			continue
 		}
 
-		if m.Spec == spec {
-			return true, nil
-		}
+		m.s.Insert(mm.Spec)
 	}
 
-	return false, nil
+	return nil
 }
 
 func NewDefaultSignQueueClient() (*Client, error) {

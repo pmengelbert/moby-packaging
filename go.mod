@@ -29,4 +29,5 @@ require (
 	golang.org/x/net v0.10.0 // indirect
 	golang.org/x/text v0.9.0 // indirect
 	golang.org/x/tools v0.8.0 // indirect
+	k8s.io/apimachinery v0.27.4 // indirect
 )
